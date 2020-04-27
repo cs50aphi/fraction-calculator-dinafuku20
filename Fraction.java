@@ -47,17 +47,17 @@ public class Fraction
         num = 0;
         denom = 1;
     }
-
+    // reutnr numerator
     public int getNumerator()
     {
         return num;
     }
-
+    // return denominator
     public int getDenominator()
     {
         return denom;
     }
-
+    // overrides toString method when printing a fraction
     public String toString()
     {
         if (denom == 1)
@@ -66,60 +66,71 @@ public class Fraction
         }
         return num+"/"+denom;
     }
-
+    // converts fraciton to double
     public Double toDouble()
     {
         return (double)(num / denom);
     }
-
+    // adds fraction by multiplying num by the other fractions denom, then multiply the denom together to get LCD
     public Fraction add(Fraction other)
     {
-
-        int result = (num + other.getNumerator())/(other.getDenominator() * denom);
-        return (Fraction)(result);
+        int newNum = num*other.getDenominator() + denom*other.getNumerator();
+        int newDenom = other.getDenominator() * denom;
+        Fraction result = new Fraction(num,denom);
+        return result;
     }
-
+    // subtracts fraction by multiplying num by the other fractions denom, then multiply the denom together to get LCD
     public Fraction subtract(Fraction other)
     {
-        int result = (num - other.getNumerator())/(other.getDenominator() * denom);
-        return (Fraction)(result);
+        int newNumum = num*other.getDenominator() - denom*other.getNumerator();
+        int newDenom = other.getDenominator() * denom;
+        Fraction result = new Fraction(num, denom);
+        return result;
     }
-
+    // multiplies fractions by multiplying numerators and denominators
     public Fraction multiply(Fraction other)
     {
-        int result = (num*other.getNumerator())/(denom*other.getDenominator());
-        return (Fraction)(result);
+        int newNum = num*other.getNumerator();
+        int newDenom = denom*other.getDenominator();
+        Fraction result = new Fraction(num, denom);
+        return result;
     }
-
+    // divides fractions by multiplying num by denom and vise versa
     public Fraction divide(Fraction other)
     {
         try
         {
-           Fraction quotient = (num*other.getDenominator())/(denom*other.getNumerator());
+            int newNum = num*other.getDenominator();
+            int newDenom = denom*other.getNumerator();
+            Fraction result = new Fraction(num,denom);
         }
         catch (IllegalArgumentException e)
         {
             System.out.println("Can't divide by zero...");
         }
-        return (Fraction)((num*other.getDenominator())/(denom*other.getNumerator()));
+        int newNum = num*other.getDenominator();
+        int newDenom = denom*other.getNumerator();
+        Fraction result = new Fraction(num,denom);
+        return result;
     }
 
     public boolean equals(Object other)
     {
+        // cast object other to a fraction
         Fraction a = (Fraction)other;
-        if ((double)(num / denom) == (double)(a.getNumerator() / a.getDenominator()))
+        if (toDouble() == (double)(a.getNumerator() / a.getDenominator()))
         {
             return true;
         }
         return false;
     }
-
+    // converts to lowest terms
     public void toLowestTerms()
     {
         num = num / gcd(num,denom);
         denom = denom / gcd(num,denom);
     }
-
+    // gets the gcd
     public static int gcd(int a, int b)
     {
         int remainder;
