@@ -76,16 +76,16 @@ public class Fraction
     {
         int newNum = num*other.getDenominator() + denom*other.getNumerator();
         int newDenom = other.getDenominator() * denom;
-        Fraction result = new Fraction(num,denom);
+        Fraction result = new Fraction(newNum,newDenom);
         result.toLowestTerms();
         return result;
     }
     // subtracts fraction by multiplying num by the other fractions denom, then multiply the denom together to get LCD
     public Fraction subtract(Fraction other)
     {
-        int newNumum = num*other.getDenominator() - denom*other.getNumerator();
+        int newNum = num*other.getDenominator() - denom*other.getNumerator();
         int newDenom = other.getDenominator() * denom;
-        Fraction result = new Fraction(num, denom);
+        Fraction result = new Fraction(newNum,newDenom);
         result.toLowestTerms();
         return result;
     }
@@ -94,7 +94,7 @@ public class Fraction
     {
         int newNum = num*other.getNumerator();
         int newDenom = denom*other.getDenominator();
-        Fraction result = new Fraction(num, denom);
+        Fraction result = new Fraction(newNum,newDenom);
         result.toLowestTerms();
         return result;
     }
@@ -105,7 +105,7 @@ public class Fraction
         {
             int newNum = num*other.getDenominator();
             int newDenom = denom*other.getNumerator();
-            Fraction result = new Fraction(num,denom);
+            Fraction result = new Fraction(newNum,newDenom);
         }
         catch (IllegalArgumentException e)
         {
@@ -113,7 +113,7 @@ public class Fraction
         }
         int newNum = num*other.getDenominator();
         int newDenom = denom*other.getNumerator();
-        Fraction result = new Fraction(num,denom);
+        Fraction result = new Fraction(newNum,newDenom);
         result.toLowestTerms();
         return result;
     }
@@ -131,19 +131,17 @@ public class Fraction
     // converts to lowest terms
     public void toLowestTerms()
     {
-        num = num / gcd(num,denom);
-        denom = denom / gcd(num,denom);
+        int number = gcd(num, denom);
+        num = num / number;
+        denom = denom / number;
     }
     // gets the gcd
     public static int gcd(int a, int b)
     {
-        int remainder;
-        while (a != 0 && b != 0)
+        if (b == 0)
         {
-            remainder = a & b;
-            a = b;
-            b = remainder;
+            return a;
         }
-        return a;
+        return gcd(b, a%b);
     }
 }
