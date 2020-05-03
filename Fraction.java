@@ -77,6 +77,7 @@ public class Fraction
         int newNum = num*other.getDenominator() + denom*other.getNumerator();
         int newDenom = other.getDenominator() * denom;
         Fraction result = new Fraction(num,denom);
+        result.toLowestTerms();
         return result;
     }
     // subtracts fraction by multiplying num by the other fractions denom, then multiply the denom together to get LCD
@@ -85,6 +86,7 @@ public class Fraction
         int newNumum = num*other.getDenominator() - denom*other.getNumerator();
         int newDenom = other.getDenominator() * denom;
         Fraction result = new Fraction(num, denom);
+        result.toLowestTerms();
         return result;
     }
     // multiplies fractions by multiplying numerators and denominators
@@ -93,6 +95,7 @@ public class Fraction
         int newNum = num*other.getNumerator();
         int newDenom = denom*other.getDenominator();
         Fraction result = new Fraction(num, denom);
+        result.toLowestTerms();
         return result;
     }
     // divides fractions by multiplying num by denom and vise versa
@@ -111,6 +114,7 @@ public class Fraction
         int newNum = num*other.getDenominator();
         int newDenom = denom*other.getNumerator();
         Fraction result = new Fraction(num,denom);
+        result.toLowestTerms();
         return result;
     }
 
