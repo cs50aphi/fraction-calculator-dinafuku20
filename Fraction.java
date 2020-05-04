@@ -120,10 +120,12 @@ public class Fraction
     {
         // cast object other to a fraction
         Fraction a = (Fraction)other;
+        // make numerators and denominators doubles
         double first = (double)(num);
         double second = (double)(denom);
         double otherOne = (double)(a.getNumerator());
         double otherTwo = (double)(a.getDenominator());
+        // if the decimal value of the fractions are the same, return true, else false
         if ((first / second) == (otherOne / otherTwo))
         {
             return true;

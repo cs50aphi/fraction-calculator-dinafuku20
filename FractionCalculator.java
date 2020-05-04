@@ -23,40 +23,49 @@ public class FractionCalculator
         {
             // get operation
             operation = getOperation(kb);
+            // if the user did not quit
             if (!operation.equals("q") && !operation.equals("Q"))
             {
+                // get both fractions
                 one = getFraction(kb);
                 two = getFraction(kb);
+                // switch based on input
                 switch (operation)
                 {
-                case "+":
-                    result = one.add(two);
-                    System.out.println(one + " + " + two + " is " + result);
-                    break;
-                case "-":
-                    result = one.subtract(two);
-                    System.out.println(one + " - " + two + " is " + result);
-                    break;
-                case "*":
-                    result = one.multiply(two);
-                    System.out.println(one + " * " + two + " is " + result);
-                    break;
-                case "/":
-                    result = one.divide(two);
-                    System.out.println(one + " / " + two + " is " + result);
-                    break;
-                case "=":
-                    if (one.equals(two))
-                    {
-                        System.out.println(one + " = " + two + " is true");
-                    }
-                    else
-                    {
-                        System.out.println(one + " = " + two + " is not true");
-                    }
-                    break;
+                    // add fractions
+                    case "+":
+                        result = one.add(two);
+                        System.out.println(one + " + " + two + " is " + result);
+                        break;
+                    // subtract fractions
+                    case "-":
+                        result = one.subtract(two);
+                        System.out.println(one + " - " + two + " is " + result);
+                        break;
+                    // multiply fractions
+                    case "*":
+                        result = one.multiply(two);
+                        System.out.println(one + " * " + two + " is " + result);
+                        break;
+                    // divide fractions
+                    case "/":
+                        result = one.divide(two);
+                        System.out.println(one + " / " + two + " is " + result);
+                        break;
+                    // compare fractions
+                    case "=":
+                        if (one.equals(two))
+                        {
+                            System.out.println(one + " = " + two + " is true");
+                        }
+                        else
+                        {
+                            System.out.println(one + " = " + two + " is not true");
+                        }
+                        break;
                 }
             }
+            // if the user quits
             else
             {
                 System.out.println("Goodbye!");
@@ -67,13 +76,17 @@ public class FractionCalculator
 
     public static String getOperation(Scanner kb)
     {
+        // String of operations
         String operation = "-+/*=qQ";
+        // Prompt user
         System.out.print("Please enter an operation (+, -, *, /, = or Q to Quit): ");
         String input = kb.next();
+        // If the user correctly put in an operation
         if (input.length() == 1 && operation.indexOf(input.substring(0,1)) >= 0)
         {
             return input;
         }
+        // if not, invalid operation
         else
         {
             System.out.println("Invalid operation...");
@@ -88,10 +101,12 @@ public class FractionCalculator
         {
             return false;
         }
+        // if the user inputs a double
         if (input.indexOf(".") != -1)
         {
             return false;
         }
+        // check for a negative and letters
         for (int i = 0, n = input.length(); i < n; i++)
         {
             if (Character.isLetter(input.charAt(i)))
