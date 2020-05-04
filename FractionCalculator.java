@@ -7,9 +7,9 @@ public class FractionCalculator
         Scanner kb = new Scanner(System.in);
         boolean done = false;
         String operation;
-        String response;
-        Fraction first;
-        Fraction second;
+        Fraction one = new Fraction(1);
+        Fraction two = new Fraction(1);
+        Fraction result;
 
         // Introduction
         System.out.println("Welcome to Fraction Calculator!");
@@ -21,65 +21,124 @@ public class FractionCalculator
         // Operations
         while(!done)
         {
-            // Prompt operation
-            System.out.print("Please enter an operation (+, -, *, /, = or Q to Quit): ");
-            operation = kb.next();
-
-            switch (operation)
+            // get operation
+            operation = getOperation(kb);
+            if (!operation.equals("q") && !operation.equals("Q"))
             {
+                one = getFraction(kb);
+                two = getFraction(kb);
+                switch (operation)
+                {
                 case "+":
-                    System.out.print("Please enter a fraction (a/b) or integer (a): ");
-                    response = kb.next();
-                    if (response.length() == 3)
-                    {
-                        first = new Fraction(Character.getNumericValue(response.charAt(0)), Character.getNumericValue(response.charAt(2)));
-                    }
-                    else
-                    {
-                        first = new Fraction(Character.getNumericValue(response.charAt(0)));
-                    }
-                    System.out.print("Please enter a fraction (a/b) or integer (a): ");
-                    response = kb.next();
-                    if (response.length() == 3)
-                    {
-                        second = new Fraction(Character.getNumericValue(response.charAt(0)), Character.getNumericValue(response.charAt(2)));
-                    }
-                    else
-                    {
-                        second = new Fraction(Character.getNumericValue(response.charAt(0)));
-                    }
-                    System.out.println(first + " + " + second + " is " + first.add(second));
+                    result = one.add(two);
+                    System.out.println(one + " + " + two + " is " + result);
                     break;
                 case "-":
-                    System.out.print("Please enter a fraction (a/b) or integer (a): ");
-                    response = kb.next();
-                    if (response.length() == 3)
-                    {
-                        first = new Fraction(Character.getNumericValue(response.charAt(0)), Character.getNumericValue(response.charAt(2)));
-                    }
-                    else
-                    {
-                        first = new Fraction(Character.getNumericValue(response.charAt(0)));
-                    }
-                    System.out.print("Please enter a fraction (a/b) or integer (a): ");
-                    response = kb.next();
-                    if (response.length() == 3)
-                    {
-                        second = new Fraction(Character.getNumericValue(response.charAt(0)), Character.getNumericValue(response.charAt(2)));
-                    }
-                    else
-                    {
-                        second = new Fraction(Character.getNumericValue(response.charAt(0)));
-                    }
-                    System.out.println(first + " - " + second + " is " + first.subtract(second));
+                    result = one.subtract(two);
+                    System.out.println(one + " - " + two + " is " + result);
                     break;
                 case "*":
-                case "/":
-                case "=":
-                case "Q":
-                    done = true;
+                    result = one.multiply(two);
+                    System.out.println(one + " * " + two + " is " + result);
                     break;
+                case "/":
+                    result = one.divide(two);
+                    System.out.println(one + " / " + two + " is " + result);
+                    break;
+                case "=":
+                    if (one.equals(two))
+                    {
+                        System.out.println(one + " = " + two + " is true");
+                    }
+                    else
+                    {
+                        System.out.println(one + " = " + two + " is not true");
+                    }
+                    break;
+                }
             }
+            else
+            {
+                System.out.println("Goodbye!");
+                done = true;
+            }
+        }
+    }
+
+    public static String getOperation(Scanner kb)
+    {
+        String operation = "-+/*=qQ";
+        System.out.print("Please enter an operation (+, -, *, /, = or Q to Quit): ");
+        String input = kb.next();
+        if (input.length() == 1 && operation.indexOf(input.substring(0,1)) >= 0)
+        {
+            return input;
+        }
+        else
+        {
+            System.out.println("Invalid operation...");
+            return getOperation(kb);
+        }
+    }
+
+    public static boolean validFraction(String input)
+    {
+        // checks to see if denominator is negative
+        if ((input.indexOf("-") > input.indexOf("/")))
+        {
+            return false;
+        }
+        if (input.indexOf(".") != -1)
+        {
+            return false;
+        }
+        for (int i = 0, n = input.length(); i < n; i++)
+        {
+            if (Character.isLetter(input.charAt(i)))
+            {
+                return false;
+            }
+            if (i > 0 && input.charAt(i) == '-')
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static Fraction getFraction(Scanner kb)
+    {
+        int numerator;
+        int denominator;
+        String response;
+
+        // prompts for fraction
+        System.out.print("Please enter a fraction (a/b) or integer (a): ");
+        response = kb.next();
+
+        // if the fraction is valid
+        if (validFraction(response))
+        {
+            // if it's a fraction and not a whole number
+            if (response.indexOf("/") != -1)
+            {
+                int location = response.indexOf("/");
+                numerator = Integer.parseInt(response.substring(0, location));
+                denominator = Integer.parseInt(response.substring(location + 1, response.length()));
+                return new Fraction(numerator, denominator);
+            }
+            // if it's a whole number
+            else
+            {
+                numerator = Integer.parseInt(response.substring(0));
+                return new Fraction(numerator);
+            }
+        }
+        // if the fraction is not valid
+        else
+        {
+            System.out.println("Invalid Fraction...");
+            return getFraction(kb);
         }
     }
 }

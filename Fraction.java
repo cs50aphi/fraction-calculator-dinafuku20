@@ -7,11 +7,11 @@ public class Fraction
     //Methods
 
     // Takes in input for numerator and denominator
-    public Fraction(int num, int denom)
+    public Fraction(int numerator, int denominator)
     {
         try
         {
-            int quotient = num / denom;
+            int quotient = numerator / denominator;
         }
         catch(IllegalArgumentException e)
         {
@@ -19,21 +19,19 @@ public class Fraction
             return;
         }
 
-        if (denom < 0 && num > 0)
+        if (denominator < 0 && numerator > 0)
         {
-            this.num = -num;
-            this.denom = Math.abs(denom);
+            numerator = -numerator;
+            denominator = Math.abs(denominator);
         }
-        else if (denom < 0 && num < 0)
+        else if (denominator < 0 && numerator < 0)
         {
-            this.num = Math.abs(num);
-            this.denom = Math.abs(denom);
+            numerator = Math.abs(numerator);
+            denominator = Math.abs(denominator);
         }
-        else
-        {
-            this.num = num;
-            this.denom = denom;
-        }
+
+        num = numerator;
+        denom = denominator;
     }
     // Takes in one input only for numerator
     public Fraction(int num)
@@ -122,7 +120,11 @@ public class Fraction
     {
         // cast object other to a fraction
         Fraction a = (Fraction)other;
-        if (toDouble() == (double)(a.getNumerator() / a.getDenominator()))
+        double first = (double)(num);
+        double second = (double)(denom);
+        double otherOne = (double)(a.getNumerator());
+        double otherTwo = (double)(a.getDenominator());
+        if ((first / second) == (otherOne / otherTwo))
         {
             return true;
         }
